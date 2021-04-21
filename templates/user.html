@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block title %} Secret Page {% endblock %} {% block
+content %}
+<div class="card my-4">
+  <div class="card-body">
+    <h5 class="card-title text-info">Account Info for : {{user.username}}</h5>
+    <p>Username: {{user.username}}</p>
+    <p>First Name : {{user.first_name}}</p>
+    <p>Last Name : {{user.last_name}}</p>
+    <p>Email : {{user.email}}</p>
+    <form>
+      <button
+        class="btn btn-danger"
+        formmethod="POST"
+        formaction="/users/{{user.username}}/delete"
+      >
+        Delete User
+      </button>
+      <button
+        class="btn btn-info"
+        formmethod="GET"
+        formaction="/users/{{user.username}}/feedback/add"
+      >
+        Add Feedback
+      </button>
+    </form>
+  </div>
+</div>
+<div>
+  {% for review in feedback %}
+  <div class="card my-4">
+    <div class="card-body">
+      <h5 class="card-title text-info">{{review.title}}</h5>
+      <p>{{review.content}}</p>
+      <form>
+        <button
+          class="btn btn-danger"
+          formmethod="POST"
+          formaction="/feedback/{{review.id}}/delete"
+        >
+          X
+        </button>
+        <button
+          class="btn btn-success"
+          formmethod="GET"
+          formaction="/feedback/{{review.id}}/update"
+        >
+          Update
+        </button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
